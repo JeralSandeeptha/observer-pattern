@@ -1,38 +1,14 @@
-// client code
-// get sql databases and use them without createing their objects directly
-import { NoSQLDatabaseFactory } from "./factory/factories/NoSQLDatabaseFactory.js";
-import { SQLDatabaseFactory } from "./factory/factories/SQLDatabaseFactory.js";
+import { Observer } from "./classes/Observer.js";
+import { Subject } from "./classes/Subject.js";
 
-// using NoSQL database factory to create NoSQL databases
-const noSqlDatabaseFactory = new NoSQLDatabaseFactory();
+const subject = new Subject();
 
-const mongoDB = noSqlDatabaseFactory.createDatabase("MongoDb");
-mongoDB.connect(); 
-mongoDB.disconnect();
+const observer1 = new Observer("Jeral");
+const observer2 = new Observer("Silmi");
 
-const mariaDB = noSqlDatabaseFactory.createDatabase("MariaDb");
-mariaDB.connect();
-mariaDB.disconnect();
+subject.subscribe(observer1);
+subject.subscribe(observer2);
 
-///////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-
-// using SQL database factory to create SQL databases
-const sqlDatabaseFactory = new SQLDatabaseFactory();
-
-const mySQLDatabase = sqlDatabaseFactory.createDatabase("MySql");
-mySQLDatabase.connect();
-mySQLDatabase.disconnect();
-
-const postgreSQLDatabase = sqlDatabaseFactory.createDatabase("PostgreSql");
-postgreSQLDatabase.connect();
-postgreSQLDatabase.disconnect();
-
-///////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
+subject.setState(8);
+// Jeral received data: 8
+// Silmi received data: 8
